@@ -1,0 +1,241 @@
+It is quite amazing to realize how big the blockchain is.  
+
+A Bitcoin block contains roughly 1 MB of data corresponding to hundreds of thousands of transactions.  There are currently more than 700,000 blocks, so that's nearly a terabyte of data.
+
+Each transaction is represented by a 32-byte value called a hash.  That's it.  The actual amount of data for each transaction is much more than this.  (Is this really true?  The raw block data has more than this).
+
+A block is added to the blockchain every 10 min or so.  That's about 150 MB of new data per day.  Yet the blockchain by itself tells you nothing about the data.
+
+To get info about the blockchain or transactions, query one of a few very large companies, such as blockchain.com, which has an API.  For example:
+
+https://blockchain.info/rawblock/$block_hash
+
+substitute this for $block_hash
+0000000000000bae09a7a393a8acded75aa67e46cb81f7acaa5ad94f9eacd103
+
+https://www.blockchain.com/rawblock/00000000000000000008cef644aa4c896d51c1603db0fd153041d8b790822006
+
+returns
+
+{
+"hash":"0000000000000bae09a7a393a8acded75aa67e46cb81f7acaa5ad94f9eacd103",
+"ver":1,
+"prev_block":"00000000000007d0f98d9edca880a6c124e25095712df8952e0439ac7409738a",
+"mrkl_root":"935aa0ed2e29a4b81e0c995c39e06995ecce7ddbebb26ed32d550a72e8200bf5",
+"time":1322131230,
+"bits":437129626,
+"next_block":["0000000000000981c0f836cc249fb18744fd33458b85d00de3e7f8995f4543ec"],
+"fee":200000,
+"nonce":2964215930,
+"n_tx":22,
+"size":9195,
+"block_index":154595,
+"main_chain":true,
+"height":154595,
+"weight":36780,
+"tx":[{
+"hash":"5b09bbb8d3cb2f8d4edbcf30664419fb7c9deaeeb1f62cb432e7741c80dbe5ba"
+...
+
+which is called the block header, followed by a bunch of transactions.  To view the first one visit
+
+https://blockchain.info/rawtx/$tx_hash
+
+substituting for $tx_hash:
+5b09bbb8d3cb2f8d4edbcf30664419fb7c9deaeeb1f62cb432e7741c80dbe5ba
+
+which returns
+
+{
+"hash":"5b09bbb8d3cb2f8d4edbcf30664419fb7c9deaeeb1f62cb432e7741c80dbe5ba",
+"ver":1,
+"vin_sz":1,
+"vout_sz":1,
+"size":168,
+"weight":672,
+"fee":0,
+"relayed_by":"0.0.0.0",
+"lock_time":0,
+"tx_index":6575884572266140,
+"double_spend":false,
+"time":1322131230,
+"block_index":154595,
+"block_height":154595,
+"inputs":[{
+"sequence":4294967295,
+"witness":"",
+"script":"70736a049a110e1a04b099a417522cfabe6d6d4e6988c831bb48c551eea50f87b3c6461ade476fe15c98bed7c6a574aca4ff3501000000000000004d696e656420627920425443204775696c6420ac1eeeed88",
+"index":0,
+"prev_out":
+{
+"spent":true,
+"script":"",
+"spending_outpoints":
+[{
+"tx_index":6575884572266140,"n":0}],"tx_index":0,"value":0,"n":4294967295,"type":0}}],"out":[{
+"type":0,
+"spent":true,
+"value":5000200000,
+"spending_outpoints":
+[{
+"tx_index":546507853773740,
+"n":0
+}],
+"n":0,
+"tx_index":6575884572266140,
+"script":"76a914ca975b00a8c203b8692f5a18d92dc5c2d2ebc57b88ac",
+"addr":"1KUCp7YP5FP8ViRxhfszSUJCTAajK6viGy"
+}]}
+
+#------------
+
+Underlying cryptographic primitives
+
+- hashing
+- signatures
+- Merkle (hash) trees
+
+I've written about the first and put a bit of that material into the parent directory.
+
+The traditional way to do signatures used public/private key pairs.
+
+For a signature, write any (short) message and then 
+  - hash the message
+  - encrypt the hash with your secret key
+  - send message + hash + ctxt
+
+The recipient uses your public key to decrypt ctxt and check that it matches the hash.  This
+
+  - authenticates sender of msg
+  - proves integrity of msg
+
+Since the public key decrypts the ctxt to the correct hash it proves who the sender is.
+The correctness of the hash also verifies that the message has not been altered.
+
+Bitcoin uses a more advanced protocol called ECDSA.
+
+#------------
+
+ECDSA
+
+(todo)
+
+
+
+#------------
+
+block structure
+
+bytes
+ 4     version
+32     previous block's hash
+32     hash of the root of the Merkle tree for this block
+ 4     timestamp (seconds since Unix Epoch)
+ 4     proof-of-work difficulty target
+ 4     nonce
+80     total size of header
+
+Transactions are represened by 32 byte values, which are hashes of the actual data.
+Transaction data is not itself in the blockchain.
+
+The Merkle tree is formed by
+hashing the hashes of pairs of individual transactions
+then hashing those combinations
+all the way up till only one hash is left
+
+a typical block might have 300,000 transactions
+and a total size of >1 MB
+
+This provides an efficient way of proving that a
+particular transaction is present in the block
+
+Here's an example of an individual transaction:
+
+{
+  "hash": "b6f6991d03df0e2e04dafffcd6bc418aac66049e2cd74b80f14ac86db1e3f0da",
+  "ver": 1,
+  "vin_sz": 1,
+  "vout_sz": 2,
+  "lock_time": "Unavailable",
+  "size": 258,
+  "relayed_by": "64.179.201.80",
+  "block_height": 12200,
+  "tx_index": "12563028",
+  "inputs": [
+    {
+      "prev_out": {
+        "hash": "a3e2bcc9a5f776112497a32b05f4b9e5b2405ed9",
+        "value": "100000000",
+        "tx_index": "12554260",
+        "n": "2"
+      },
+      "script": "76a914641ad5051edd97029a003fe9efb29359fcee409d88ac"
+    }
+  ],
+  "out": [
+    {
+      "value": "98000000",
+      "hash": "29d6a3540acfa0a950bef2bfdc75cd51c24390fd",
+      "script": "76a914641ad5051edd97029a003fe9efb29359fcee409d88ac"
+    },
+    {
+      "value": "2000000",
+      "hash": "17b5038a413f5c5ee288caa64cfab35a0c01914e",
+      "script": "76a914641ad5051edd97029a003fe9efb29359fcee409d88ac"
+    }
+  ]
+}
+
+A script is essentially a list of instructions recorded with each transaction that describes how the next person wanting to spend the Bitcoins being transferred can gain access to them.  Something like
+
+scriptPubKey: OP_DUP OP_HASH160 <pubKeyHash> OP_EQUALVERIFY OP_CHECKSIG
+scriptSig: <sig> <pubKey>
+
+Usually, it's a signature check, and since signatures are based on your secret key, that's what keeps the bitcoin safe so only you can spend it.
+
+The example isn't quite right since the inputs and outputs match exactly.  Normally, there needs to be something left over, which is the transaction fee that pays the miners for their effort.
+
+https://en.bitcoin.it/wiki/Script#Script_examples
+
+"A script is essentially a list of instructions recorded with each transaction that describe how the next person wanting to spend the Bitcoins being transferred can gain access to them. 
+
+The script for a typical Bitcoin transfer to destination Bitcoin address D simply encumbers future spending of the bitcoins with two things: the spender must provide a public key that, when hashed, yields destination address D embedded in the script, and
+a signature to prove ownership of the private key corresponding to the public key just provided."
+
+So the transaction includes a destination "address".  
+
+To spend the coins the spender must provide the public key and also prove ownership of the private key as a signature.  If I understand 
+
+https://en.bitcoin.it/wiki/Technical_background_of_version_1_Bitcoin_addresses
+
+correctly, the entire transaction (inputs, outputs and script) are hashed and then encrypted with the private key.  So the check is to decrypt with the public key and then check that the hash matches.
+
+#### Addresses
+
+Simply put, the address is the hash of a public key.  In reality there are a number of steps.
+
+https://en.bitcoin.it/wiki/Technical_background_of_version_1_Bitcoin_addresses
+
+1- generate a private ECDSA key (64 hex digits, 32 bytes, 256 bits)
+2- generate the corresponding public key, append 0x02 in front
+3- sha256 hash the public key
+4- RIPEMD-160 hash the previous result (40 hex digits, 20 bytes, 160 bits)
+5- add a version byte append 0x00 in front
+
+The second stage is to convert the result to a Base58 string
+6- sha256 hash of the previous line
+7- sha256 hash of the hash
+8- take the first 4 bytes of the previous line as the address checksum
+9- take the RIPEMD-160 hash (5), add checksum bytes at the end to make 25 bytes
+10- convert the bytes from 9 into Base58Check encoding example:
+    1PMycacnJaSqwwJqjawXBErnLsZ7RkXUAs
+
+
+Base58 is 26 + 26 minus 0OIl
+Reasons:
+
+- 0OIl easily confused and also lack +/ from base64
+- so double-click will select, email won't break at +/
+
+So an address is a hashed public key.
+address is shorter, encoded and has some error-checking.
