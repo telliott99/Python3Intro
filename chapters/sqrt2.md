@@ -123,4 +123,4 @@ Another point is
 while abs(g*g - N) > 1e-9:
 ```
 
-Since we use `g = 2` for each `N`, `g*g - N` is not positive for `N >= 2`, so the while loop never executes without `abs`, which calls the absolute value function.  Without `abs` the code works find for N = 2 or 3 but not for N = 5.
+Since we use `g = 2` for each `N`, `g*g - N` is not positive for `N >= 2`, so the while loop never executes without `abs`, which calls the absolute value function.  Without `abs` the code works for N = 2 or 3 but not for N = 5.

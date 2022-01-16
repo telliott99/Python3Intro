@@ -5,3 +5,4 @@ arsty
 spike
 aegis
 tipsy
+solar 
