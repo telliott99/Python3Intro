@@ -43,3 +43,8 @@ The output:
 
 <img src="figs/walk.png" style="width: 400px;" />
 
+Additions:
+
+A script to implement addition and multiplication for binary numbers represented as strings of `0` and `1`.
+
+- [binary operations](code/binops.py)
