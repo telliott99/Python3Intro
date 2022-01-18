@@ -1,7 +1,7 @@
 import sys
 
 fn = 'words5.txt'
-p = '/Users/telliott/Dropbox/Github/Python3Intro/code/'
+p = '/Users/telliott/Dropbox/Github/Python3Intro/data/'
 with open(p+fn) as fh:
     data = fh.read()
 L = data.strip().split('\n')

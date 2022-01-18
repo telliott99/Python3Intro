@@ -43,8 +43,12 @@ The output:
 
 <img src="figs/walk.png" style="width: 400px;" />
 
-Additions:
+#### Bare scripts
 
-A script to implement addition and multiplication for binary numbers represented as strings of `0` and `1`.
+Addition and multiplication for binary numbers represented as strings of `0` and `1`.
 
 - [binary operations](code/binops.py)
+
+Implement the game
+
+- [Wordle](code/my_wordle.py)

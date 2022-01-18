@@ -91,7 +91,7 @@ Python 2.7.16 (default, Aug 30 2021, 14:43:11)
 ..
 ```
 
-with a deprecation warning.  At this point (2022), use Python 3.
+with a deprecation warning.  At this point (2022), use Python 3.  For a detailed look at what's changed see [this](https://docs.python.org/3/whatsnew/3.0.html) from Guido Van Rossum.
 
 #### scripting
 
