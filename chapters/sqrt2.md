@@ -8,17 +8,17 @@ We use `x` to obtain something which is "on the other side" of the target:  `N/x
 g = (x + N/x)/2
 ```
 
-This works if `x` is not zero.  
+This works if `x` is not zero.  Rarely, it can go wrong in other ways.  See the internet for details.
 
 #### Justification
 
-The line through the point (x,f(x)) with slope f'(x) goes through y = 0 when x = g, because the slope is 
+The line with slope f'(x) that goes through the point (x,f(x)) on the curve, also goes through y = 0 when x = g, because the slope is 
 
 f'(x) = &Delta;y/&Delta;x = [f(x) - 0] / [x - g]
 
 g = x - f(x)/f'(x)
 
-To evaluate this, we write an expression f(x) (where the values we seek are the roots f(x) = 0)
+To evaluate the square root, we write an expression f(x) (where the values we seek are the roots f(x) = 0).
 
 f(x) = x^2 - N
 

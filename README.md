@@ -20,7 +20,7 @@ Next is a much better way to calculate the square root of 2.
 Finally, we calculate the logarithm of a number to a given base.  In the example, the base is 2, but it could be a anything.
 
 - [successive approximation](chapters/sqrt.md)
-- [square root of 2](sqrt2.md)
+- [square root of 2](chapters/sqrt2.md)
 - [logarithm](chapters/log.md)
 
 These are more chapters on sorting, on Wordle, a popular word game on the web, and on exercising the Genetic Code.

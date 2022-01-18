@@ -1,84 +1,98 @@
-'''
-to do
-adjust difficulty
-analyze logic failures in main loop
-'''
+import sys, random, collections
 
+def load_data(fn):
+    p = '/Users/telliott/Dropbox/Github'
+    p += '/Python3Intro/data/'
+    with open(p+fn) as fh:
+         data = fh.read()   
+    # 5-letter words from Norvig's database
+    return data.strip().split('\n')
 
-import random
-
-#fn = 'sgb-words.txt'
 fn = 'norvig5.txt'
-p = '/Users/telliott/Dropbox/Github'
-p += '/Python3Intro/data/'
+L = load_data(fn)
 
-with open(p+fn) as fh:
-    data = fh.read()
+N = 500
+delta = 1
+if '-m' in sys.argv:
+    i = sys.argv.index('-m')
+    try:
+        delta = int(sys.argv[i+1])
+    except:
+        delta = 2
+    N *= delta
     
-# 5-letter words from Norvig's database
-L = data.strip().split('\n')
-
-# target
-t = random.choice(L[:2000])
-
-'''
-fn = 'sgb-words.txt'
-p = '/Users/telliott/Dropbox/Github'
-p += '/Python3Intro/data/'
-
-with open(p+fn) as fh:
-    data = fh.read()
-L = L + data.strip().split('\n')
-'''
-
-p = "Wordle:  guess the 5-letter word\n"
-p += "enter q to quit\n\n"
-gL = list()
-
-keyboard = '''
-Q W E R T Y U I O P
- A S D F G H J K L
-Z X C V B N M
-'''
-kb = keyboard
+if '-h' in sys.argv or '--help' in sys.argv:
+    print('flags: `-m <n>` increases the difficulty')
+    sys.exit()
 
 # --------
 
-def handle(r,gL):
+# target
+t = random.choice(L[:N])
+
+p = "Wordle\nI'm thinking of a 5-letter word\n"
+p += "Want to guess?\n"
+p += 'level: %d\n' % delta
+p += "enter q to quit\n\n"
+
+correctD = dict()
+guessD = collections.defaultdict(list)
+
+keyboard = '''
+     Q W E R T Y U I O P
+      A S D F G H J K L
+     Z X C V B N M
+'''
+
+kb = keyboard
+hr = '-'*30 # horizontal rule
+
+# --------
+
+sL = list('.....')
+
+
+def handle(r):
     r = r.strip().lower()
-    print("guess:   %s" % r)
+    print("guess:          %s" % r)
     if not r in L:
         print("that doesn't seem to be a valid 5-letter word\nplease try again")
         return
     
-    global kb
-    rL = list()
+    correct = r == t
+
+    global kb, sL  
     for c in r:
         kb = kb.replace(c.upper(),' ')
     
-    for x,y in zip(r,t):
+    for i,(x,y) in enumerate(zip(r,t)):
         if x == y:
-            rL.append(x)
-        else:
-            rL.append('.')
-            
+            sL[i] = x            
         if x != y and x in t:
-            gL.append(x)
+            guessD[x].append(i)
+                       
+    print('matched:    ')
+    print('                %s' % ''.join(sL))
     
-    gL = list(set(gL))
-    local_copy_gL = [c for c in gL if not c in rL]
-            
-    s =  'matches: %s ' % ''.join(rL)
-    s += '(%s)' % ''.join(local_copy_gL)
+    if correct:  
+        return True
     
-    correct = r == t
-    return correct, s
+    kL = [k for k in sorted(guessD.keys()) if not k in sL]
+    #print('present: (%s)' % ''.join(kL))
+    print('out of place:')
+    for c in kL:
+        iL = guessD[c]
+        pL = list()
+        for i in range(5):
+            if i in iL:
+                pL.append(c)
+            else:
+                pL.append('.')
+        print('                %s' % ''.join(pL))
 
-def debug(v = True):
-    if v:
-        print(e)
-    else:
-        print('an error occurred')
+    print('to try:')
+    print(kb)
+    print(hr)
 
 # --------
 
@@ -94,100 +108,9 @@ while True:
     if r in ['q','quit']:
         break
 
-    retval = handle(r,gL)
-    if retval:
-        correct,result = retval
-        print(result)
-        print(kb, '-'*20)
-        
-        if correct:
-            print('congratulations')
-            break
+    correct = handle(r)
+    if correct:
+        print('congratulations')
+        break
     
 print("the word was %s" % t)
-
-
-'''> p3 my_wordle.py
-Wordle:  guess the 5-letter word
-enter q to quit
-
-aegis
-guess:   aegis
-matches: ..... (es)
-
-Q W   R T Y U   O P
-     D F   H J K L
-Z X C V B N M
- --------------------
-ounce
-guess:   ounce
-matches: ..... (es)
-
-Q W   R T Y       P
-     D F   H J K L
-Z X   V B   M
- --------------------
-wordy
-guess:   wordy
-matches: ..... (wes)
-
-Q       T         P
-       F   H J K L
-Z X   V B   M
- --------------------
-sawer
-guess:   sawer
-that doesn't seem to be a valid 5-letter word
-please try again
-barmy
-guess:   barmy
-matches: ..... (wes)
-
-Q       T         P
-       F   H J K L
-Z X   V      
- --------------------
-quite
-guess:   quite
-matches: ..... (wets)
-
-                  P
-       F   H J K L
-Z X   V      
- --------------------
-newts
-guess:   newts
-matches: ..... (wets)
-
-                  P
-       F   H J K L
-Z X   V      
- --------------------
-sweet
-guess:   sweet
-matches: swe.t ()
-
-                  P
-       F   H J K L
-Z X   V      
- --------------------
-sweat
-guess:   sweat
-matches: swe.t ()
-
-                  P
-       F   H J K L
-Z X   V      
- --------------------
-swept
-guess:   swept
-matches: swept ()
-
-                   
-       F   H J K L
-Z X   V      
- --------------------
-congratulations
-the word was swept
->
-'''

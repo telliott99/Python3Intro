@@ -1,0 +1,83 @@
+> p3 my_wordle.py
+Wordle:  guess the 5-letter word
+enter q to quit
+
+aegis
+guess:   aegis
+matches: ..... (es)
+
+Q W   R T Y U   O P
+     D F   H J K L
+Z X C V B N M
+ --------------------
+ounce
+guess:   ounce
+matches: ..... (es)
+
+Q W   R T Y       P
+     D F   H J K L
+Z X   V B   M
+ --------------------
+wordy
+guess:   wordy
+matches: ..... (wes)
+
+Q       T         P
+       F   H J K L
+Z X   V B   M
+ --------------------
+sawer
+guess:   sawer
+that doesn't seem to be a valid 5-letter word
+please try again
+barmy
+guess:   barmy
+matches: ..... (wes)
+
+Q       T         P
+       F   H J K L
+Z X   V      
+ --------------------
+quite
+guess:   quite
+matches: ..... (wets)
+
+                  P
+       F   H J K L
+Z X   V      
+ --------------------
+newts
+guess:   newts
+matches: ..... (wets)
+
+                  P
+       F   H J K L
+Z X   V      
+ --------------------
+sweet
+guess:   sweet
+matches: swe.t ()
+
+                  P
+       F   H J K L
+Z X   V      
+ --------------------
+sweat
+guess:   sweat
+matches: swe.t ()
+
+                  P
+       F   H J K L
+Z X   V      
+ --------------------
+swept
+guess:   swept
+matches: swept ()
+
+                   
+       F   H J K L
+Z X   V      
+ --------------------
+congratulations
+the word was swept
+>
