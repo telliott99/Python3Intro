@@ -2,38 +2,49 @@
 
 This is a new attempt to write a quick introduction to Python (Python 3).  Current content includes a basic intro chapter.
 
-- [intro](chapters/intro.md)
+- [intro](src/intro.md)
 
 There are several math-related chapters.
 
-- [factors](chapters/factors.md)
-- [primes](chapters/primes.md)
+- [factors](src/factors.md)
+- [primes](src/primes.md)
 
-From this point on the code segments get a bit longer.  I admit I find it very hard to read other people's code.  
+From this point, the code segments get a bit longer.  
 
-An alternative approach is to understand the problem and then try to write your own code to solve it.  My solution can serve as a guide if you run into difficulty.
+I freely admit I find it very hard to read other people's code, and almost never do so.  And yet these examples have non-trivial amounts of code:  50 or 100 *loc* (lines of code).
 
-One example shows how to compute the square root of 2, by successive approximation.  Actually, this approach can be adapted to any function that returns an irrational number.
+My suggestion is that the value in this repo is the problem statements, understand these, and then try to write your own code.  My solutions can serve as a guide if you run into difficulty.
 
-Next is a much better way to calculate the square root of 2.
+The first shows how to compute the square root of 2 by successive approximation.  Actually, this approach can be generalized to any function that returns an irrational number.
 
-Finally, we calculate the logarithm of a number to a given base.  In the example, the base is 2, but it could be a anything.
+Next is a much better way to calculate the square root of 2, due in part to the ancient Babylonians and partly to Isaac Newton.
 
-- [successive approximation](chapters/sqrt.md)
-- [square root of 2](chapters/sqrt2.md)
-- [logarithm](chapters/log.md)
+Finally, we calculate the logarithm of a number to a given base.  In the example, the base is 2, but the code could be easily modified to any base.  However, because of the simple formula for changing the base of a logarithm, a general solution really doesn't add anything.
 
-These are more chapters on sorting, on Wordle, a popular word game on the web, and on exercising the Genetic Code.
+- [successive approximation](src/sqrt.md)
+- [square root of 2](src/sqrt2.md)
+- [logarithm](src/log.md)
 
-- [sorting](chapters/sorting.md)
-- [wordle](chapters/wordle.md)
-- [genetic code](chapters/gc.md)
 
-I also have a discussion of Caesar ciphers, the math for public key crypto (original version based on Euler's totient function), and a demonstration of proof-of-work as it's used in Bitcoin.
+We can also exercise the Genetic Code.  And, I wrote a short chapter on sorting.  I love sorting.  
 
-- [ciphers](chapters/caesar.md)
-- [public key math](chapters/math.md)
-- [proof-of-work](chapters/proof.md)
+- [wordle](src/wordle_cracker.md)
+- [genetic code](src/gc.md)
+- [sorting](src/sorting.md)
+
+There is a discussion of Caesar ciphers, a write-up about the math for public key crypto (original version based on Euler's totient function), and a demonstration of proof-of-work as it's used in Bitcoin.
+
+- [ciphers](src/caesar.md)
+- [public key math](src/math.md)
+- [proof-of-work](src/proof.md)
+
+Wordle is a *very* popular word game on the web (Jan 2022).  The first writeup is about a "cracker" for Wordle.  At the end of this README, you will find a Python script for my version of Wordle that runs from the command line.
+
+- [Wordle](src/wordle.md)
+
+I wrote a script to check a buch of github project directories and report their status
+
+- [git check](src/gitcheck.md)
 
 Finally, there is code using the plotting library Matplotlib to demonstrate trials of a 1D random walk. 
 
@@ -48,7 +59,3 @@ The output:
 Addition and multiplication for binary numbers represented as strings of `0` and `1`.
 
 - [binary operations](code/binops.py)
-
-Implement the game
-
-- [Wordle](code/my_wordle.py)

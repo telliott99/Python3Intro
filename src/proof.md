@@ -75,11 +75,11 @@ one_run()
 
 ```
 script.py
-> p3 script.py mydata 4
+> p3 mining.py mydata 4
     0.0984      79246 00001bd85ce60d6abe40...
-> p3 script.py mydata 5
+> p3 mining.py mydata 5
     1.8948    1610357 00000dc787a1c2eebe04...
-> p3 script.py mydata 6
+> p3 mining.py mydata 6
   107.7354   85086374 000000e3bd19eb091681...
 >
 ```
