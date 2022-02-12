@@ -1,9 +1,10 @@
 import sys, random, collections
 
-h = 'call the script as in:\npython3 my_wordle.py <n>\n'
+h = '\ncall the script as:\npython3 wordle5.py <n>\n'
 h += 'n = difficulty, range (1-10)'
 if '-h' in sys.argv or '--help' in sys.argv:
     print(h)
+    print()
     sys.exit()
 
 def load_data(fn):
@@ -59,6 +60,7 @@ def handle(r):
     if r in ['h','help']:
         print(h)
         print("letters marked as correct may match twice")
+        print()
         return
     
     counter += 1
@@ -68,6 +70,7 @@ def handle(r):
     if not r in L:
         print("that doesn't seem to be a valid 5-letter word\nplease try again")
         print(hr)
+        counter -= 1
         return
     
     correct = r == t

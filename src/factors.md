@@ -5,7 +5,7 @@ As part of our introduction to programming, we'll look at some problems involvin
 As I'm sure you know, the Fibonacci numbers are defined by the recurrence relation:
 
 ```
-Fn = F{n-1} + F{n-2}
+Fn = F{n-2} + F{n-1}
 ```
 
 The first two elements are usually defined to be `[1,1]`.
@@ -83,7 +83,7 @@ so
 
 #### Factoring
 
-As an example of how programs are developed in stages (at least, that's how I do it), we will write a program to find the prime factors for an integer.
+As an example of how programs are developed in stages, we will write a program to find the prime factors for an integer.
 
 We start simply, with integers smaller than 25, so we need to test only the first two prime numbers.
 
@@ -212,3 +212,89 @@ for n in range(2,101):
 100 [2, 2, 5, 5]
 >
 ```
+
+#### Recursion
+
+Recall that *n!* (n factorial) is
+
+```
+n * (n-1) * (n-2) ... * 1
+```
+
+Here is a Python function to calculate the factorial.
+
+```
+def factorial(n):
+    if n == 1:
+        return 1
+    return n * factorial(n-1)
+```
+
+This is a recursive solution.  The function calls itself.
+
+Another example involves the Euclidean algorithm for the greatest common divisor of *a* and *b*.
+
+If *a < b*, switch them.  The algorithm is:
+
+- Find a % b.  
+- That is, find q and r such that a = bq + r
+- Replace a,b by b,r
+
+Repeat until *r* is *0*.  This *b* is *gcd(a,b)*.  Here it is in Python:
+
+```
+def gcd(a,b): r = a % b
+    if r == 0:
+        return b
+    return gcd(b,r)
+```
+
+The function gcd calls itself.
+
+An alternative version that doesn't use recursion:
+
+```
+def gcd(a,b): 
+    r = a % b
+    while r != 0: 
+        a,b = b,r 
+        r = a % b
+    return b
+```
+
+A non-recursive factorial function:
+
+```
+def factorial(n):
+    f = 1
+    for x in range(1,n+1):
+        f *= x
+    return f
+```
+
+Recursion can be a problem if we do too much of it:
+
+```
+>>> def factorial(n):
+...     if n == 1:
+...         return 1
+...     return n * factorial(n-1)
+... 
+>>>
+>>> factorial(6)
+720
+>>> s = factorial(998)
+>>> len(str(s))
+2562
+>>>
+>>> s = factorial(999)
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+  File "<stdin>", line 4, in factorial
+  File "<stdin>", line 4, in factorial
+  File "<stdin>", line 4, in factorial
+  [Previous line repeated 995 more times]
+  File "<stdin>", line 2, in factorial
+RecursionError: maximum recursion depth exceeded in comparison
+```
+

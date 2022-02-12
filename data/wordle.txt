@@ -1,3 +1,20 @@
+ounce
+aster
+glyph
+swirl
+
+boxed
+
+
+
+aegis
+aphid
+artsy
+spike
+tipsy
+solar 
+
+
 
 
 https://norvig.com/ngrams

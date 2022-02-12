@@ -60,6 +60,11 @@ which gives:
 
 Next, we use these stored values to compute the logarithm of an input value to base 2.  Here that value is 3.
 
+Proceeding down the list of exponents `(0.5, 0.25 ..)`, in the variable `f`, and the corresponding square roots `n`, we compute `tmp` as `n*value`.  
+
+As long as `tmp` remains smaller than the target, we accumulate the exponent by adding them to the variable `my_log`, and assign `value = tmp`.  
+
+
 ```
 import sys, math
 target = float(sys.argv[1])
@@ -100,9 +105,5 @@ print(math.log(target,base))
 1.5849625007211563
 > 
 ```
-
-Proceeding down the list of exponents `(0.5, 0.25 ..)`, in the variable `f`, and the corresponding square roots `n`, we compute `tmp` as `n*value`.  
-
-As long as `tmp` remains smaller than the target, we accumulate the exponent by adding them to the variable `my_log`, and assign `value = tmp`.  
 
 In the output you can see `value` approaching but never exceeding the target.  At the end, the result is printed, together with the logarithm as computed by the built-in function.
