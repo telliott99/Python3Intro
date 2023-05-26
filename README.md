@@ -26,7 +26,7 @@ Finally, we calculate the logarithm of a number to a given base.  In the example
 - [logarithm](src/log.md)
 
 
-We can also exercise the Genetic Code.  And, I wrote a short chapter on sorting.  I love sorting.  
+We can also exercise the Genetic Code.  AI also wrote a short chapter on sorting.  I love sorting.  
 
 - [wordle](src/wordle_cracker.md)
 - [genetic code](src/gc.md)

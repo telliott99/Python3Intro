@@ -1,3 +1,4 @@
+#! /usr/local/bin/python3
 import sys, random, collections
 
 h = '\ncall the script as:\npython3 wordle5.py <n>\n'
@@ -9,7 +10,7 @@ if '-h' in sys.argv or '--help' in sys.argv:
 
 def load_data(fn):
     p = '/Users/telliott/Dropbox/Github'
-    p += '/Python3Intro/data/'
+    p += '/Python3 Intro/data/'
     with open(p+fn) as fh:
          data = fh.read()
          

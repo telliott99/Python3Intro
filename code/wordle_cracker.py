@@ -1,7 +1,7 @@
 import sys
 
 fn = 'words5.txt'
-p = '/Users/telliott/Dropbox/Github/Python3Intro/data/'
+p = '/Users/telliott/Dropbox/Github/Python3 Intro/data/'
 with open(p+fn) as fh:
     data = fh.read()
 L = data.strip().split('\n')
@@ -43,6 +43,5 @@ for word in L:
       
 N = len(pL)      
 print(N)
-if N < 20:
-    for word in pL:
-        print(word)
+for word in pL[:20]:
+    print(word)
